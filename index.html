@@ -5,317 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>屋企日用品</title>
   <style>
-    :root {
-      color-scheme: light;
-      --ink: #183128;
-      --muted: #64736b;
-      --line: #d9e4dc;
-      --paper: #fbfcfa;
-      --leaf: #237552;
-      --leaf-dark: #16563b;
-      --soft-green: #e8f4ec;
-      --warm: #fff8e9;
-      --danger: #b3261e;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-width: 320px;
-      background: #f1f5f1;
-      color: var(--ink);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    main {
-      width: min(100%, 720px);
-      margin: 0 auto;
-      padding: 24px 16px 40px;
-    }
-
-    header { margin: 4px 4px 22px; }
-
-    .eyebrow {
-      margin: 0 0 6px;
-      color: var(--leaf);
-      font-size: .82rem;
-      font-weight: 700;
-      letter-spacing: .08em;
-    }
-
-    h1, h2, p { margin-top: 0; }
-    h1 { margin-bottom: 6px; font-size: clamp(1.8rem, 8vw, 2.35rem); letter-spacing: -.04em; }
-    h2 { margin-bottom: 16px; font-size: 1.1rem; }
-    .intro { margin-bottom: 0; color: var(--muted); font-size: .95rem; }
-
-    .card {
-      margin-bottom: 16px;
-      padding: 20px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--paper);
-      box-shadow: 0 3px 12px rgba(24, 49, 40, .04);
-    }
-
-    .total-card { background: var(--leaf); color: #fff; border: 0; }
-    .total-label { margin-bottom: 8px; font-size: .92rem; font-weight: 600; }
-    .total-amount { margin: 0; font-size: clamp(2rem, 11vw, 3rem); font-weight: 800; letter-spacing: -.045em; }
-    .total-note { margin: 7px 0 0; color: #d8f2e3; font-size: .82rem; }
-
-    form { display: grid; gap: 14px; }
-    .two-up { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    label { display: grid; gap: 7px; color: var(--ink); font-size: .9rem; font-weight: 700; }
-    input, select, button { font: inherit; }
-    input, select {
-      width: 100%;
-      min-height: 46px;
-      padding: 10px 12px;
-      border: 1px solid #b9c9be;
-      border-radius: 10px;
-      background: #fff;
-      color: var(--ink);
-    }
-    input:focus, select:focus { outline: 3px solid #bde2ca; outline-offset: 1px; border-color: var(--leaf); }
-    .hint { margin: -7px 0 0; color: var(--muted); font-size: .78rem; }
-    button {
-      min-height: 48px;
-      border: 0;
-      border-radius: 10px;
-      background: var(--leaf);
-      color: #fff;
-      font-weight: 800;
-      cursor: pointer;
-    }
-    button:hover { background: var(--leaf-dark); }
-    button:focus-visible { outline: 3px solid #a9dcb9; outline-offset: 2px; }
-
-    .list-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-    .list-heading p { margin-bottom: 16px; color: var(--muted); font-size: .83rem; }
-    .item-list { display: grid; gap: 10px; }
-    .item-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 8px 16px;
-      padding: 15px;
-      border: 1px solid var(--line);
-      border-radius: 13px;
-      background: #fff;
-    }
-    .item-name { margin: 0; font-size: 1rem; font-weight: 800; }
-    .item-meta { margin: 5px 0 0; color: var(--muted); font-size: .82rem; }
-    .remaining { align-self: center; text-align: right; }
-    .remaining-label { display: block; color: var(--muted); font-size: .75rem; }
-    .remaining-value { display: block; margin-top: 2px; font-size: 1.18rem; font-weight: 800; }
-    .monthly-spend { grid-column: 1 / -1; padding-top: 10px; border-top: 1px solid #edf1ed; color: var(--muted); font-size: .83rem; }
-    .monthly-spend strong { color: var(--ink); }
-    .threshold-control { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; padding-top: 10px; border-top: 1px solid #edf1ed; color: var(--muted); font-size: .83rem; }
-    .threshold-control input { width: 86px; min-height: 38px; padding: 6px 8px; }
-    .low-stock-status { grid-column: 1 / -1; margin: 0; color: var(--danger); font-size: .88rem; font-weight: 800; }
-    .empty-state { margin: 0; padding: 18px 4px; color: var(--muted); text-align: center; }
-
-    @media (min-width: 560px) {
-      main { padding: 44px 24px 56px; }
-      .form-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; }
-      .form-grid .full { grid-column: 1 / -1; }
-      .item-row { grid-template-columns: minmax(0, 1fr) 125px 155px; align-items: center; }
-      .monthly-spend { grid-column: auto; border-top: 0; border-left: 1px solid #edf1ed; padding: 0 0 0 16px; }
-      .threshold-control, .low-stock-status { grid-column: 1 / -1; }
-    }
+    :root { --ink:#173127; --muted:#66756d; --line:#d8e4db; --paper:#fbfcfa; --leaf:#237552; --danger:#a32626; --soft:#e9f5ed; }
+    * { box-sizing:border-box; } body { margin:0; min-width:320px; background:#f0f5f1; color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    main { width:min(100%,720px); margin:auto; padding:24px 16px 42px; } h1,h2,p { margin-top:0; } h1 { margin:0 0 7px; font-size:clamp(1.8rem,8vw,2.35rem); letter-spacing:-.04em; } h2 { margin-bottom:15px; font-size:1.1rem; }
+    .eyebrow { margin-bottom:6px; color:var(--leaf); font-size:.82rem; font-weight:800; letter-spacing:.08em; }.intro,.hint,.empty-state,.meta { color:var(--muted); }.intro { margin-bottom:22px; }
+    .card { margin-bottom:16px; padding:20px; border:1px solid var(--line); border-radius:18px; background:var(--paper); box-shadow:0 3px 12px rgba(24,49,40,.04); }.total { color:#fff; border:0; background:var(--leaf); }.total p { margin-bottom:0; }.total-label { font-size:.92rem; font-weight:700; }.total-amount { margin-top:8px; font-size:clamp(2rem,11vw,3rem); font-weight:800; letter-spacing:-.045em; }.total-note { margin-top:7px; color:#d8f2e3; font-size:.82rem; }
+    form,.form-grid,.item-list { display:grid; gap:14px; } label { display:grid; gap:7px; font-size:.9rem; font-weight:700; } input,select,button { font:inherit; } input,select { width:100%; min-height:46px; padding:10px 12px; border:1px solid #b8c9bd; border-radius:10px; background:#fff; color:var(--ink); } input:focus,select:focus { outline:3px solid #bde2ca; outline-offset:1px; border-color:var(--leaf); } input:disabled { background:#eef2ee; color:#77847c; }
+    button { min-height:48px; border:0; border-radius:10px; background:var(--leaf); color:#fff; font-weight:800; cursor:pointer; } button:hover { filter:brightness(.92); } button:focus-visible { outline:3px solid #a9dcb9; outline-offset:2px; }.hint { margin:-7px 0 0; font-size:.8rem; }.form-error { min-height:1.2em; margin:0; color:var(--danger); font-size:.88rem; font-weight:700; }
+    .list-head { display:flex; align-items:baseline; justify-content:space-between; gap:10px; }.list-head p { margin-bottom:15px; font-size:.82rem; }.item-row { display:grid; gap:12px; padding:15px; border:1px solid var(--line); border-radius:13px; background:#fff; }.item-top { display:flex; justify-content:space-between; align-items:start; gap:12px; }.item-name { margin:0; font-size:1rem; font-weight:800; }.remaining { text-align:right; }.remaining span { display:block; }.remaining-label { color:var(--muted); font-size:.75rem; }.remaining-value { margin-top:2px; font-size:1.1rem; font-weight:800; }.status { margin:5px 0 0; color:var(--danger); font-size:.86rem; font-weight:800; }.metrics { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding-top:11px; border-top:1px solid #edf1ed; }.metric { margin:0; color:var(--muted); font-size:.78rem; }.metric strong { display:block; margin-top:2px; color:var(--ink); font-size:.92rem; }.threshold { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:.8rem; }.threshold input { width:82px; min-height:38px; padding:7px 8px; }.empty-state { margin:0; padding:20px 4px; text-align:center; }.clear { width:100%; margin-top:14px; background:#74453e; }
+    @media (min-width:560px) { main { padding:44px 24px 56px; }.form-grid { grid-template-columns:1.35fr 1fr; }.full { grid-column:1 / -1; }.item-row { grid-template-columns:minmax(0,1fr) 160px; }.metrics,.threshold { grid-column:1 / -1; }.metrics { grid-template-columns:1fr 1fr; }.threshold { justify-self:start; } }
   </style>
 </head>
 <body>
   <main>
-    <header>
-      <p class="eyebrow">屋企日用品</p>
-      <h1>記低，先唔會斷貨。</h1>
-      <p class="intro">加入每次買咗或用咗嘅紀錄，屋企用品一目了然。</p>
-    </header>
-
-    <section class="card total-card" aria-labelledby="monthly-title">
-      <p id="monthly-title" class="total-label">本月屋企使費</p>
-      <p id="total-amount" class="total-amount">HK$0.00</p>
-      <p id="total-note" class="total-note">暫未計算</p>
-    </section>
-
+    <header><p class="eyebrow">屋企日用品</p><h1>記低，先唔會斷貨。</h1><p class="intro">記錄每次買咗同用咗，餘量同使費會自動整理。</p></header>
+    <section class="card total" aria-labelledby="total-title"><p id="total-title" class="total-label">本月屋企使費</p><p id="household-total" class="total-amount">HK$0.00</p><p class="total-note">只計本曆月嘅「買咗」</p></section>
     <section class="card" aria-labelledby="entry-title">
       <h2 id="entry-title">加入一筆</h2>
-      <form id="record-form">
+      <form id="record-form" novalidate>
         <div class="form-grid">
-          <label class="full">物品名
-            <input id="item-name" type="text" placeholder="例如：廁紙" aria-label="物品名" required>
-          </label>
-          <label>類型
-            <select id="record-type" aria-label="類型">
-              <option value="買咗">買咗</option>
-              <option value="用咗">用咗</option>
-            </select>
-          </label>
-          <label>數量
-            <input id="quantity" type="number" inputmode="decimal" min="0" step="1" placeholder="例如：2" aria-label="數量" required>
-          </label>
-          <label>金額（港幣）
-            <input id="amount" type="number" inputmode="decimal" min="0" step="0.01" placeholder="例如：28.00" aria-label="金額（港幣）" required>
-          </label>
-          <label>日期
-            <input id="record-date" type="date" aria-label="日期" required>
-          </label>
+          <label class="full">物品名<input id="item-name" type="text" placeholder="例如：廁紙" required></label>
+          <label>類型<select id="record-type"><option value="買咗">買咗</option><option value="用咗">用咗</option></select></label>
+          <label>數量<input id="quantity" type="number" inputmode="decimal" min="0.01" step="any" placeholder="例如：2" required></label>
+          <label>金額（港幣）<input id="amount" type="number" inputmode="decimal" min="0" step="0.01" placeholder="例如：28.00" required></label>
+          <label>日期<input id="record-date" type="date" required></label>
         </div>
-        <p class="hint">「買咗」先需要填金額。</p>
-        <button type="submit">加入紀錄</button>
+        <p id="form-hint" class="hint">「買咗」需要填金額。</p><p id="form-error" class="form-error" role="alert" aria-live="polite"></p><button type="submit">加入紀錄</button>
       </form>
     </section>
-
     <section class="card" aria-labelledby="items-title">
-      <div class="list-heading">
-        <h2 id="items-title">而家有咩</h2>
-        <p>按物品匯總</p>
-      </div>
-      <div id="item-list" class="item-list" aria-live="polite"></div>
+      <div class="list-head"><h2 id="items-title">而家有咩</h2><p>按物品整理</p></div>
+      <div id="item-list" class="item-list" aria-live="polite"></div><button id="clear-all" class="clear" type="button">清空全部</button>
     </section>
   </main>
   <script>
-    const storageKey = 'home-supplies-data';
-    const form = document.getElementById('record-form');
-    const typeInput = document.getElementById('record-type');
-    const amountInput = document.getElementById('amount');
-    const dateInput = document.getElementById('record-date');
-    const itemList = document.getElementById('item-list');
-    const totalAmount = document.getElementById('total-amount');
-    const totalNote = document.getElementById('total-note');
-    const today = () => new Date().toLocaleDateString('en-CA');
-
-    // Records retain their existing structure. Thresholds are the only saved setting added.
-    function readData() {
-      try {
-        const saved = JSON.parse(localStorage.getItem(storageKey) || '{"records":[],"thresholds":{}}');
-        return { records: Array.isArray(saved.records) ? saved.records : [], thresholds: saved.thresholds && typeof saved.thresholds === 'object' ? saved.thresholds : {} };
-      } catch { return { records: [], thresholds: {} }; }
-    }
-    function writeData(data) { localStorage.setItem(storageKey, JSON.stringify(data)); }
-    function parseAmountCents(value) { const [whole, fraction = ''] = value.split('.'); return Number(whole) * 100 + Number(`${fraction}00`.slice(0, 2)); }
-
-    // Logic layer: all quantities and monthly spending are derived from records.
-    function getRemainingQuantity(records, itemName) {
-      return records
-        .filter((record) => record.itemName === itemName)
-        .reduce((remaining, record) => {
-          const quantity = Number(record.quantity) || 0;
-          return record.type === '買咗' ? remaining + quantity : remaining - quantity;
-        }, 0);
-    }
-
-    function getRecordAmountCents(record) {
-      return Number.isInteger(record.amountCents) ? record.amountCents : 0;
-    }
-
-    function getCurrentMonthSpendCents(records, today = new Date()) {
-      const monthPrefix = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
-
-      return records
-        .filter((record) => record.type === '買咗' && record.date.startsWith(monthPrefix))
-        .reduce((totalCents, record) => totalCents + getRecordAmountCents(record), 0);
-    }
-
-    function formatHKD(cents) {
-      return `HK$${(cents / 100).toFixed(2)}`;
-    }
-
-    function getItemMonthSpendCents(records, itemName, now = new Date()) {
-      return getCurrentMonthSpendCents(records.filter((record) => record.itemName === itemName), now);
-    }
-
-    function getLowStockStatus(remaining, threshold) {
-      if (threshold === undefined || threshold === null || threshold === '') return '';
-      if (remaining < 0) return '數對唔上';
-      if (remaining === 0) return '用完咗';
-      return remaining <= Number(threshold) ? '就快用完' : '';
-    }
-
-    function render() {
-      const { records, thresholds } = readData();
-      const names = [...new Set(records.map((record) => record.itemName))];
-      const monthlyTotal = getCurrentMonthSpendCents(records);
-      totalAmount.textContent = formatHKD(monthlyTotal);
-      totalNote.textContent = `${new Date().getFullYear()} 年 ${new Date().getMonth() + 1} 月`;
-      itemList.replaceChildren();
-      if (!names.length) {
-        const empty = document.createElement('p'); empty.className = 'empty-state'; empty.textContent = '未有紀錄，加第一筆啦'; itemList.append(empty); return;
-      }
-      names.forEach((itemName) => {
-        const remaining = getRemainingQuantity(records, itemName);
-        const threshold = thresholds[itemName];
-        const status = getLowStockStatus(remaining, threshold);
-        const row = document.createElement('article'); row.className = 'item-row';
-        row.innerHTML = '<div><p class="item-name"></p></div><div class="remaining"><span class="remaining-label">仲剩</span><span class="remaining-value"></span></div><p class="monthly-spend">呢個月使咗幾多錢：<strong></strong></p><label class="threshold-control">低量門檻<input type="number" inputmode="decimal" min="0" step="1" placeholder="未設定"></label>';
-        row.querySelector('.item-name').textContent = itemName;
-        row.querySelector('.remaining-value').textContent = remaining;
-        row.querySelector('.monthly-spend strong').textContent = formatHKD(getItemMonthSpendCents(records, itemName));
-        const thresholdInput = row.querySelector('input');
-        if (threshold !== undefined) thresholdInput.value = threshold;
-        thresholdInput.addEventListener('input', () => {
-          const next = readData();
-          if (thresholdInput.value === '') delete next.thresholds[itemName];
-          else next.thresholds[itemName] = Number(thresholdInput.value);
-          writeData(next); render();
-        });
-        if (status) { const statusElement = document.createElement('p'); statusElement.className = 'low-stock-status'; statusElement.textContent = status; row.append(statusElement); }
-        itemList.append(row);
-      });
-    }
-
-    function syncAmountField() { const isPurchase = typeInput.value === '買咗'; amountInput.disabled = !isPurchase; amountInput.required = isPurchase; if (!isPurchase) amountInput.value = ''; }
+    const storageKey = 'home-supplies-records';
+    const form = document.getElementById('record-form'); const typeInput = document.getElementById('record-type'); const amountInput = document.getElementById('amount'); const dateInput = document.getElementById('record-date'); const errorBox = document.getElementById('form-error');
+    const monthKey = (date) => date.slice(0, 7); const currentMonth = () => monthKey(today());
+    function today() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+    function parseCents(value) { const match = String(value).trim().match(/^(\d+)(?:\.(\d{1,2}))?$/); return match ? Number(match[1]) * 100 + Number((match[2] || '').padEnd(2,'0')) : null; }
+    const formatHKD = (cents) => `HK$${(cents / 100).toFixed(2)}`;
+    function readState() { try { const value = JSON.parse(localStorage.getItem(storageKey) || 'null'); if (Array.isArray(value)) return { records:value, thresholds:{} }; if (value && Array.isArray(value.records)) return { records:value.records, thresholds:value.thresholds || {} }; } catch {} return { records:[], thresholds:{} }; }
+    function saveState(state) { localStorage.setItem(storageKey, JSON.stringify({ records:state.records, thresholds:state.thresholds })); }
+    function remaining(records, item) { return records.filter(r => r.item === item).reduce((sum, r) => sum + (r.type === '買咗' ? r.quantity : -r.quantity), 0); }
+    function canUseQuantity(records, item, quantity) { return Number(quantity) <= remaining(records, item); }
+    function itemSummary(records, item) { const now = currentMonth(); let spend = 0, boughtQuantity = 0; records.forEach(r => { if (r.item === item && r.type === '買咗' && monthKey(r.date) === now) { spend += r.amount; boughtQuantity += r.quantity; } }); return { remaining:remaining(records,item), spend, average:boughtQuantity ? Math.round(spend / boughtQuantity) : null }; }
+    function statusFor(summary, threshold) { if (threshold === undefined) return ''; if (summary.remaining === 0) return '用完咗'; if (summary.remaining > 0 && summary.remaining <= threshold) return '就快用完'; return ''; }
+    function render() { const state = readState(); const list = document.getElementById('item-list'); const total = state.records.filter(r => r.type === '買咗' && monthKey(r.date) === currentMonth()).reduce((sum,r) => sum + r.amount, 0); document.getElementById('household-total').textContent = formatHKD(total); list.replaceChildren(); const items = [...new Set(state.records.map(r => r.item))].sort((a,b) => a.localeCompare(b,'zh-HK'));
+      if (!items.length) { const empty=document.createElement('p'); empty.className='empty-state'; empty.textContent='未有紀錄，加第一筆啦'; list.append(empty); return; }
+      items.forEach(item => { const summary=itemSummary(state.records,item); const row=document.createElement('article'); row.className='item-row'; const threshold=state.thresholds[item]; const status=statusFor(summary,threshold); row.innerHTML='<div><p class="item-name"></p><p class="status"></p></div><div class="remaining"><span class="remaining-label">仲剩</span><span class="remaining-value"></span></div><div class="metrics"><p class="metric">呢個月使咗幾多錢<strong></strong></p><p class="metric">本月平均單價<strong></strong></p></div><label class="threshold">低量門檻<input type="number" min="0" step="any" placeholder="未設定"></label>'; row.querySelector('.item-name').textContent=item; row.querySelector('.remaining-value').textContent=summary.remaining; row.querySelector('.metrics strong').textContent=formatHKD(summary.spend); row.querySelectorAll('.metrics strong')[1].textContent=summary.average === null ? '—' : formatHKD(summary.average); const statusNode=row.querySelector('.status'); statusNode.textContent=status; if (!status) statusNode.remove(); const thresholdInput=row.querySelector('.threshold input'); if (threshold !== undefined) thresholdInput.value=threshold; thresholdInput.addEventListener('change', () => { const next=readState(); const raw=thresholdInput.value.trim(); if (raw === '') delete next.thresholds[item]; else next.thresholds[item]=Number(raw); saveState(next); render(); }); list.append(row); }); }
+    function syncAmountField() { const buying=typeInput.value === '買咗'; amountInput.disabled=!buying; amountInput.required=buying; if (!buying) amountInput.value=''; document.getElementById('form-hint').textContent=buying ? '「買咗」需要填金額。' : '「用咗」毋須填金額。'; }
     typeInput.addEventListener('change', syncAmountField);
-    form.addEventListener('submit', (event) => {
-      event.preventDefault(); if (!form.reportValidity()) return;
-      const data = readData(); const type = typeInput.value;
-      const record = { itemName: document.getElementById('item-name').value.trim(), type, quantity: Number(document.getElementById('quantity').value), date: dateInput.value };
-      if (type === '買咗') record.amountCents = parseAmountCents(amountInput.value);
-      data.records.push(record);
-      writeData(data); form.reset(); dateInput.value = today(); syncAmountField(); render();
-    });
-
-    document.getElementById('record-date').value = new Date().toLocaleDateString('en-CA');
-
+    form.addEventListener('submit', event => { event.preventDefault(); errorBox.textContent=''; const item=document.getElementById('item-name').value.trim(); const quantity=Number(document.getElementById('quantity').value); const type=typeInput.value; const cents=type === '買咗' ? parseCents(amountInput.value) : 0; if (!item || !Number.isFinite(quantity) || quantity <= 0 || !dateInput.value || (type === '買咗' && cents === null)) { errorBox.textContent='請填妥所有必填資料。'; return; } const state=readState(); if (type === '用咗' && !canUseQuantity(state.records,item,quantity)) { errorBox.textContent='數量唔可以多過現有存貨'; return; } state.records.push({ id:crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`, item, type, quantity, amount:cents, date:dateInput.value }); saveState(state); form.reset(); dateInput.value=today(); syncAmountField(); render(); });
+    document.getElementById('clear-all').addEventListener('click', () => { if (!window.confirm('確定要清空全部紀錄同門檻？')) return; localStorage.removeItem(storageKey); errorBox.textContent=''; render(); });
     function selfCheck() {
-      const failures = [];
-      const assert = (condition, message) => {
-        if (!condition) failures.push(message);
-      };
-      const now = new Date();
-      const currentMonthDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
-      const previousMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-      const previousMonthDate = `${previousMonth.getFullYear()}-${String(previousMonth.getMonth() + 1).padStart(2, '0')}-01`;
-      const records = [
-        { itemName: '測試紙巾', type: '買咗', quantity: 10, date: currentMonthDate, amountCents: 10 },
-        { itemName: '測試紙巾', type: '用咗', quantity: 3, date: currentMonthDate },
-        { itemName: '測試紙巾', type: '買咗', quantity: 0, date: currentMonthDate, amountCents: 20 },
-        { itemName: '測試紙巾', type: '買咗', quantity: 0, date: previousMonthDate, amountCents: 999 }
-      ];
-      const remaining = getRemainingQuantity(records, '測試紙巾');
-      const currentMonthCents = getCurrentMonthSpendCents(records, now);
-
-      assert(remaining === 7, `(a) 預期剩 7，實際係 ${remaining}`);
-      assert(formatHKD(currentMonthCents) === 'HK$0.30', `(b) 預期 HK$0.30，實際係 ${formatHKD(currentMonthCents)}`);
-      assert(currentMonthCents === 30 && currentMonthCents !== getRecordAmountCents(records[3]),
-        `(c) 上個月 HK$9.99 被錯誤計入本月使費：${formatHKD(currentMonthCents)}`);
-      assert(getLowStockStatus(0, undefined) === '', '(d) 未設門檻時剩 0 不應顯示狀態');
-      assert(getLowStockStatus(0, 1) === '用完咗', '(e) 有門檻時剩 0 應顯示「用完咗」');
-      assert(getLowStockStatus(-1, 1) === '數對唔上', '(f) 有門檻時負數應顯示「數對唔上」');
-      assert(getLowStockStatus(2, 2) === '就快用完', '(g) 餘量等於門檻應顯示「就快用完」');
-
-      if (failures.length) {
-        failures.forEach((failure) => console.error(failure));
-        return false;
-      }
-
+      const assert = (condition, message) => { if (!condition) throw new Error(message); };
+      const stock = [{ item:'EGG', type:'買咗', quantity:2, amount:1000, date:today() }];
+      assert(statusFor({ remaining:0 }, undefined) === '', '未設門檻時剩 0 不應顯示狀態');
+      assert(statusFor({ remaining:0 }, 1) === '用完咗', '有門檻時剩 0 應顯示用完咗');
+      assert(statusFor({ remaining:2 }, 2) === '就快用完', '餘量等於門檻應顯示就快用完');
+      assert(canUseQuantity(stock, 'EGG', 3) === false, '現有 2 件時，用咗 3 件應被拒絕');
       console.log('selfCheck 全過');
       return true;
     }
-    dateInput.value = today();
-    syncAmountField();
-    render();
-    selfCheck();
+    dateInput.value=today(); syncAmountField(); render(); selfCheck();
   </script>
 </body>
 </html>

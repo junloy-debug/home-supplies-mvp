@@ -110,17 +110,18 @@ acceptance_criteria:
       human_evidence: "Red status on the item row."
 
   - id: A7
-    requirement: "For an item with a configured threshold, remaining 0 shows red 用完咗; remaining below 0 shows red 數對唔上 and the app continues running."
+    requirement: "For an item with a configured threshold, remaining 0 shows red 用完咗. A 用咗 record that would make remaining quantity fall below 0 is rejected."
     boundaries:
-      - "When no threshold is configured, show no red status for positive, zero, or negative remaining quantities."
-      - "At 0 or below, A7 overrides A6."
+      - "The rejection rule applies whether or not a threshold is configured."
+      - "A rejected usage record is not written to localStorage and shows 數量唔可以多過現有存貨."
+      - "At 0, A7 overrides A6."
     verification:
       primary: script
       checks:
         - "Assert threshold-configured remaining 0 shows 用完咗."
-        - "Assert threshold-configured negative remaining shows 數對唔上 without uncaught error."
-        - "Remove threshold and assert no red status at positive, zero, and negative values."
-      human_evidence: "Boundary-state rows and a still-responsive UI."
+        - "With remaining 2, attempt to save a 用咗 quantity of 3; assert the save is rejected and stored records are unchanged."
+        - "Assert the rejected form shows 數量唔可以多過現有存貨."
+      human_evidence: "Zero-stock row and rejected over-usage form."
 
   - id: A8
     requirement: "Records and thresholds survive refresh/reopen; an empty first state says 未有紀錄，加第一筆啦; clearing all requires one confirmation."
@@ -145,6 +146,23 @@ acceptance_criteria:
       secondary: ai_judge
       rubric: "At 320px, form, list, threshold control, and clear-all control are readable and reachable without horizontal page overflow."
       human_evidence: "320px screenshot and source inspection."
+
+  - id: B1
+    requirement: >-
+      Each item row shows 本月平均單價, calculated as that item's total current-month
+      買咗 amount divided by its total current-month 買咗 quantity.
+    boundaries:
+      - "用咗 records do not contribute amount or quantity to the average."
+      - "Records outside the current calendar month do not contribute to the average."
+      - "If the item has no current-month purchase quantity, display — and do not divide by zero or crash."
+      - "Display the result in HKD with exactly two decimal places and no floating-point residue."
+    verification:
+      primary: script
+      checks:
+        - "For current-month purchases of 2 units at HK$10.00 and 3 units at HK$21.00, assert 本月平均單價 is HK$6.20."
+        - "Add a current-month 用咗 record and a prior-month purchase; assert the average remains HK$6.20."
+        - "For an item with no current-month purchase quantity, assert the row shows — and the app continues running."
+      human_evidence: "Each item row's 本月平均單價 value or — empty value."
 
 not_done_report:
   required_if_any_criterion_fails: true
