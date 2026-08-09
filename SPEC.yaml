@@ -1,0 +1,174 @@
+schema_version: "1.0"
+project:
+  name: home-supplies-mvp
+  goal: "Build a simple, mobile-first household supplies tracker for recording purchases and usage."
+  definition_of_done: >-
+    A single offline-capable index.html satisfies every required criterion below,
+    passes all automated checks, has no listed excluded capability, and is accepted
+    by a human reviewer through the final gate.
+
+lifecycle:
+  status: working_spec
+  planning_reminder: "Before producing a plan, remind the owner to obtain the client's agreement on the MVP scope."
+  final_gate: human
+  stop_policy:
+    max_rounds: 6
+    max_elapsed_minutes: 90
+    blocker_stop_after_repeated_rounds: 2
+    on_stop: "Produce a not-done report with evidence; do not claim completion."
+
+execution_constraints:
+  deliverable: index.html
+  runtime:
+    - "Use only browser-native HTML, CSS, and JavaScript in the single file."
+    - "Do not load external files, CDN assets, web fonts, libraries, APIs, or network services."
+    - "Persist records and thresholds locally with browser localStorage."
+  prohibited:
+    - "Login or account features"
+    - "Cross-device synchronization"
+    - "Currency selection"
+    - "Push notifications"
+    - "Backend, secrets, deployment, or public repository changes"
+
+verification_policy:
+  rule: "Use script checks for deterministic facts; use AI judge only for visual/usability review; final acceptance is human."
+  evidence_required: true
+  verifiers:
+    script: "Runs deterministic browser/source checks and returns pass/fail."
+    ai_judge: "Reviews rendered UI against the stated usability and wording rubric."
+    human: "Confirms scope, client intent, and final delivery."
+
+acceptance_criteria:
+  - id: A1
+    requirement: >-
+      A user can add one record with item name, transaction type (買咗 or 用咗),
+      quantity, and date. 買咗 requires an HKD amount; 用咗 does not require an amount.
+    boundaries:
+      - "A purchase without an amount cannot be saved."
+      - "A usage record without an amount can be saved; its amount is disabled or stored as zero."
+    verification:
+      primary: script
+      checks:
+        - "Save one purchase and one usage record; both appear in stored records."
+        - "Attempt purchase with blank amount; save is blocked."
+        - "Attempt usage with blank amount; save succeeds."
+      human_evidence: "Form fields and resulting item row."
+
+  - id: A2
+    requirement: "The item list shows exactly one row per item with name, remaining quantity, and that item's current-month spend."
+    boundaries:
+      - "Multiple records for the same item remain aggregated into one row."
+    verification:
+      primary: script
+      checks:
+        - "Create multiple records for one item and one for another item; assert one row per distinct item."
+        - "Assert each row contains item name, remaining quantity, and current-month spend."
+      human_evidence: "Visible item-list rows."
+
+  - id: A3
+    requirement: "Remaining quantity is derived from records only: total purchased quantity minus total used quantity for that item."
+    boundaries:
+      - "No independent balance/current-stock value may be stored or treated as the source of truth."
+    verification:
+      primary: script
+      checks:
+        - "Change record data and assert remaining quantity recalculates from all records."
+        - "Inspect localStorage/source and assert no independent balance field is used."
+      human_evidence: "Source/localStorage inspection plus recalculated list value."
+
+  - id: A4
+    requirement: "Current-month household spend equals the sum of current-month 買咗 amounts only."
+    boundaries:
+      - "用咗 records never count as spend."
+      - "Purchases dated before the current calendar month do not count."
+    verification:
+      primary: script
+      checks:
+        - "Use current-month purchase, current-month usage, and prior-month purchase fixture records."
+        - "Assert item and household totals include only current-month purchases."
+      human_evidence: "Displayed monthly totals."
+
+  - id: A5
+    requirement: "All money is HKD with exactly two decimal places and arithmetic has no floating-point residue."
+    verification:
+      primary: script
+      checks:
+        - "Assert 0.10 plus 0.20 renders as HK$0.30."
+        - "Assert totals are calculated using integer cents or equivalent exact arithmetic."
+      human_evidence: "Displayed amount formatting."
+
+  - id: A6
+    requirement: "For an item with a configured low-stock threshold, remaining quantity greater than zero and less than or equal to the threshold shows red text 就快用完."
+    boundaries:
+      - "Equality with the threshold triggers the message."
+      - "A7 messages take precedence."
+    verification:
+      primary: script
+      checks:
+        - "Set threshold 3 and remaining quantity 3; assert red 就快用完."
+        - "Set remaining quantity 4; assert no low-stock message."
+      human_evidence: "Red status on the item row."
+
+  - id: A7
+    requirement: "For an item with a configured threshold, remaining 0 shows red 用完咗. A 用咗 record that would make remaining quantity fall below 0 is rejected."
+    boundaries:
+      - "The rejection rule applies whether or not a threshold is configured."
+      - "A rejected usage record is not written to localStorage and shows 數量唔可以多過現有存貨."
+      - "At 0, A7 overrides A6."
+    verification:
+      primary: script
+      checks:
+        - "Assert threshold-configured remaining 0 shows 用完咗."
+        - "With remaining 2, attempt to save a 用咗 quantity of 3; assert the save is rejected and stored records are unchanged."
+        - "Assert the rejected form shows 數量唔可以多過現有存貨."
+      human_evidence: "Zero-stock row and rejected over-usage form."
+
+  - id: A8
+    requirement: "Records and thresholds survive refresh/reopen; an empty first state says 未有紀錄，加第一筆啦; clearing all requires one confirmation."
+    boundaries:
+      - "Cancelling the confirmation deletes nothing."
+    verification:
+      primary: script
+      checks:
+        - "Save records and threshold, reload, and assert both restore from localStorage."
+        - "With no records, assert exact empty-state text."
+        - "Cancel clear-all and assert data remains; confirm and assert records and thresholds are removed."
+      human_evidence: "Reloaded state, empty state, and confirmation dialog."
+
+  - id: A9
+    requirement: "The deliverable is one index.html with no external dependency and is usable at 320px viewport width."
+    verification:
+      primary: script
+      checks:
+        - "Assert the deliverable set contains only index.html."
+        - "Assert no external script, stylesheet, font, image, fetch, or CDN URL is referenced."
+        - "Render at 320px and assert essential controls are visible and operable."
+      secondary: ai_judge
+      rubric: "At 320px, form, list, threshold control, and clear-all control are readable and reachable without horizontal page overflow."
+      human_evidence: "320px screenshot and source inspection."
+
+  - id: B1
+    requirement: >-
+      Each item row shows 本月平均單價, calculated as that item's total current-month
+      買咗 amount divided by its total current-month 買咗 quantity.
+    boundaries:
+      - "用咗 records do not contribute amount or quantity to the average."
+      - "Records outside the current calendar month do not contribute to the average."
+      - "If the item has no current-month purchase quantity, display — and do not divide by zero or crash."
+      - "Display the result in HKD with exactly two decimal places and no floating-point residue."
+    verification:
+      primary: script
+      checks:
+        - "For current-month purchases of 2 units at HK$10.00 and 3 units at HK$21.00, assert 本月平均單價 is HK$6.20."
+        - "Add a current-month 用咗 record and a prior-month purchase; assert the average remains HK$6.20."
+        - "For an item with no current-month purchase quantity, assert the row shows — and the app continues running."
+      human_evidence: "Each item row's 本月平均單價 value or — empty value."
+
+not_done_report:
+  required_if_any_criterion_fails: true
+  fields:
+    - criterion_id
+    - status
+    - evidence
+    - known_limitation
+    - next_action
