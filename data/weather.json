@@ -1,0 +1,76 @@
+{
+  "fetchedAt": "2026-08-09T10:05:45.123Z",
+  "current": {
+    "temperature": 35,
+    "humidity": 50,
+    "warnings": [
+      "酷熱天氣警告現正生效，提防持續極端酷熱天氣！請留意身體健康狀況，多補充水分及做足防暑措施。避免戶外劇烈運動。如感不適，請儘快求醫。"
+    ],
+    "hkoUpdateTime": "2026-08-09T18:02:00+08:00"
+  },
+  "forecast": [
+    {
+      "date": "20260810",
+      "weekday": "星期一",
+      "description": "大致天晴。日間極端酷熱。",
+      "maxTemperature": 36,
+      "minTemperature": 30
+    },
+    {
+      "date": "20260811",
+      "weekday": "星期二",
+      "description": "大致天晴。日間極端酷熱。但稍後局部地區有驟雨。",
+      "maxTemperature": 35,
+      "minTemperature": 29
+    },
+    {
+      "date": "20260812",
+      "weekday": "星期三",
+      "description": "部分時間有陽光，有一兩陣驟雨。日間酷熱。",
+      "maxTemperature": 33,
+      "minTemperature": 28
+    },
+    {
+      "date": "20260813",
+      "weekday": "星期四",
+      "description": "部分時間有陽光，有一兩陣驟雨。日間酷熱。",
+      "maxTemperature": 33,
+      "minTemperature": 27
+    },
+    {
+      "date": "20260814",
+      "weekday": "星期五",
+      "description": "大致多雲，有幾陣驟雨。日間短暫時間有陽光。",
+      "maxTemperature": 32,
+      "minTemperature": 27
+    },
+    {
+      "date": "20260815",
+      "weekday": "星期六",
+      "description": "大致多雲，有幾陣驟雨。初時局部地區有雷暴。日間短暫時間有陽光。",
+      "maxTemperature": 32,
+      "minTemperature": 27
+    },
+    {
+      "date": "20260816",
+      "weekday": "星期日",
+      "description": "短暫時間有陽光，有幾陣驟雨。",
+      "maxTemperature": 32,
+      "minTemperature": 27
+    },
+    {
+      "date": "20260817",
+      "weekday": "星期一",
+      "description": "部分時間有陽光，有幾陣驟雨。日間酷熱。",
+      "maxTemperature": 33,
+      "minTemperature": 27
+    },
+    {
+      "date": "20260818",
+      "weekday": "星期二",
+      "description": "部分時間有陽光，有幾陣驟雨。日間酷熱。",
+      "maxTemperature": 33,
+      "minTemperature": 27
+    }
+  ]
+}
