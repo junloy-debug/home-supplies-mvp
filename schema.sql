@@ -23,6 +23,9 @@ create table public.members (
 
 create table public.records (
   id uuid primary key default gen_random_uuid(),
+  -- Stable Day 1 browser record ID. Null for records created after migration.
+  legacy_id text unique,
+  low_stock_threshold numeric(12, 3) check (low_stock_threshold is null or low_stock_threshold >= 0),
   item_name text not null check (char_length(trim(item_name)) > 0),
   record_type text not null check (record_type in ('purchase', 'usage', 'adjustment')),
   quantity numeric(12, 3) not null check (quantity <> 0),
@@ -149,6 +152,11 @@ create policy "managers manage members"
   on public.members for all to authenticated
   using ((select app_private.is_manager()))
   with check ((select app_private.is_manager()));
+
+-- Signed-in users may read only their own role for the session display.
+create policy "members read own role"
+  on public.members for select to authenticated
+  using (user_id = (select auth.uid()));
 
 -- records: approved managers, clerks, and viewers can read. Only managers and
 -- clerks can write; viewer and pending have no write policy at all.
